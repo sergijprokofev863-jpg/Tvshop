@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Все для дому — інтернет-магазин</title>
+  <meta name="description" content="Інтернет-магазин «Все для дому». Товари для дому, кухні та господарства. Замовлення онлайн." />
+  <style>
+    body {margin:0;font-family:Arial, sans-serif;background:#f6f6f6;color:#333}
+    header {background:#1f2937;color:#fff;padding:15px}
+    header h1 {margin:0;font-size:22px}
+    nav {margin-top:8px}
+    nav a {color:#fff;margin-right:15px;text-decoration:none;font-size:14px}
+    .container {padding:15px}
+    .products {display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
+    .product {background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+    .product img {width:100%;border-radius:8px}
+    .product h3 {font-size:16px;margin:8px 0}
+    .price {font-weight:bold;margin-bottom:8px}
+    button {background:#2563eb;color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer}
+    button:hover {background:#1d4ed8}
+    .cart {position:fixed;bottom:15px;right:15px;background:#16a34a;color:#fff;padding:12px;border-radius:50%;font-weight:bold}
+    footer {background:#111827;color:#fff;padding:15px;margin-top:30px;font-size:14px}
+    .cart-panel {position:fixed;top:0;right:-100%;width:100%;max-width:360px;height:100%;background:#fff;box-shadow:-4px 0 10px rgba(0,0,0,.2);padding:15px;transition:.3s;overflow:auto}
+    .cart-panel.active {right:0}
+    .cart-item {display:flex;justify-content:space-between;margin-bottom:10px}
+  </style>
+</head>
+<body><header>
+  <h1>Все для дому</h1>
+  <nav>
+    <a href="#">Головна</a>
+    <a href="#products">Товари</a>
+    <a href="#about">Про нас</a>
+    <a href="#contacts">Контакти</a>
+  </nav>
+</header><div class="container" id="products">
+  <h2>Популярні товари</h2>
+  <div class="products">
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Ліхтарик" />
+      <h3>Ліхтарик LED</h3>
+      <div class="price">550 грн</div>
+      <button onclick="addToCart('Ліхтарик LED',550)">У кошик</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Набір інструментів" />
+      <h3>Набір інструментів</h3>
+      <div class="price">1200 грн</div>
+      <button onclick="addToCart('Набір інструментів',1200)">У кошик</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Кухонний набір" />
+      <h3>Кухонний набір</h3>
+      <div class="price">780 грн</div>
+      <button onclick="addToCart('Кухонний набір',780)">У кошик</button>
+    </div>
+  </div>
+</div><div class="container" id="about">
+  <h2>Про нас</h2>
+  <p>«Все для дому» — це інтернет-магазин корисних товарів для дому, кухні та господарства. Швидке замовлення та зручний сервіс.</p>
+</div><div class="container" id="contacts">
+  <h2>Контакти</h2>
+  <p>Телефон: <b>098 947 7418</b></p>
+  <p>Telegram: <b>@prokofiev_x</b></p>
+</div><div class="cart" onclick="toggleCart()">🛒</div><div class="cart-panel" id="cartPanel">
+  <h2>Кошик</h2>
+  <div id="cartItems"></div>
+  <hr>
+  <p><b>Разом: <span id="total">0</span> грн</b></p>
+  <button onclick="checkout()">Оформити замовлення</button>
+</div><footer>
+  © 2026 Все для дому. Всі права захищені.
+</footer><script>
+  let cart = [];
+
+  function addToCart(name, price) {
+    cart.push({name, price});
+    renderCart();
+    alert('Товар додано в кошик');
+  }
+
+  function toggleCart() {
+    document.getElementById('cartPanel').classList.toggle('active');
+  }
+
+  function renderCart() {
+    const items = document.getElementById('cartItems');
+    items.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price;
+      items.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>${item.price} грн</span></div>`;
+    });
+    document.getElementById('total').innerText = total;
+  }
+
+  function checkout() {
+    if(cart.length === 0) {
+      alert('Кошик порожній');
+      return;
+    }
+    alert('Замовлення оформлено! Ми зв’яжемось з вами.');
+    cart = [];
+    renderCart();
+    toggleCart();
+  }
+</script></body>
+</html>
